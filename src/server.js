@@ -18,11 +18,20 @@ const sockets = [];
 
 const handleConnection = socket => {
   sockets.push(socket);
+  sockets['nickname'] = 'Anon';
   console.log('Connected  to Browser ✅');
   socket.on('close', () => console.log('Disconnected from the Browser ❌'));
-  socket.on('message', message => {
-    // console.log(message.toString('utf8'));
-    sockets.forEach(aSocket => aSocket.send(message.toString('utf8')));
+  socket.on('message', msg => {
+    const message = JSON.parse(msg);
+    // console.log(message);
+    switch (message.type) {
+      case 'new_message':
+        sockets.forEach(aSocket => aSocket.send(`${socket.nickname}: ${message.payload}`));
+        break;
+      case 'nickname':
+        socket['nickname'] = message.payload;
+        break;
+    }
   });
 };
 
