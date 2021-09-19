@@ -14,35 +14,13 @@ const httpServer = http.createServer(app);
 const wsServer = SocketIO(httpServer);
 
 wsServer.on('connection', socket => {
-  console.log(socket);
+  socket.on('enter_room', (msg, done) => {
+    console.log(msg);
+    setTimeout(() => {
+      done();
+    }, 10000);
+  });
 });
-
-//TODO ws 와 socket.io 비교를 위한 기존 ws 코드 (추후 삭제)
-
-// const wss = new WebSocket.Server({ server });
-
-// const sockets = [];
-
-// const handleConnection = socket => {
-//   sockets.push(socket);
-//   sockets['nickname'] = 'Anon';
-//   console.log('Connected  to Browser ✅');
-//   socket.on('close', () => console.log('Disconnected from the Browser ❌'));
-//   socket.on('message', msg => {
-//     const message = JSON.parse(msg);
-//     // console.log(message);
-//     switch (message.type) {
-//       case 'new_message':
-//         sockets.forEach(aSocket => aSocket.send(`${socket.nickname}: ${message.payload}`));
-//         break;
-//       case 'nickname':
-//         socket['nickname'] = message.payload;
-//         break;
-//     }
-//   });
-// };
-//
-// wss.on('connection', handleConnection);
 
 const handleListen = () => console.log(`Listening on http://localhost:3000`);
 httpServer.listen(3000, handleListen);
