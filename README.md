@@ -2,7 +2,7 @@
 
 Zoom Clone using NodeJS, WebRTC and Websockets.
 
-- socket -> ws 이용
+- socket -> ws, socket.io 이용
 - app,js -> Front 
 - server.js -> Back <br/> 
 
