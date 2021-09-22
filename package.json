@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "dependencies": {
     "-": "^0.0.1",
+    "@socket.io/admin-ui": "^0.2.0",
     "D": "^1.0.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
