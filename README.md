@@ -1,4 +1,4 @@
-# Zoom_Clone + javascript
+# Zoom_Clone + js + socket.io + WebRTC
 
 Zoom Clone using NodeJS, WebRTC and Websockets.
 
@@ -9,3 +9,5 @@ Zoom Clone using NodeJS, WebRTC and Websockets.
 - app,js -> Front 
   
 - server.js -> Back <br/> 
+
+### [프로젝트 바로가기](https://wondonghwi.github.io/Zoom_CloneCoding/)
