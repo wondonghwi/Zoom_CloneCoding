@@ -30,7 +30,7 @@
   "scripts": {
     "dev": "nodemon"
   },
-  "homepage": "https://github.com/wondonghwi/Zoom_CloneCoding#readme",
+  "homepage": "https://github.com/wondonghwi/Zoom_CloneCoding",
   "description": "using WebRTC and Websockets",
   "devDependencies": {
     "@babel/cli": "^7.15.4",

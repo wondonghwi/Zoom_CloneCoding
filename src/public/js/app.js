@@ -1,13 +1,10 @@
 const socket = io();
-
 const myFace = document.getElementById('myFace');
 const muteBtn = document.getElementById('mute');
 const cameraBtn = document.getElementById('camera');
 const camerasSelect = document.getElementById('cameras');
 const call = document.getElementById('call');
-
 call.hidden = true;
-
 let myStream;
 let muted = false;
 let cameraOff = false;
@@ -32,7 +29,6 @@ const getCameras = async () => {
     console.log(e);
   }
 };
-
 const getMedia = async deviceId => {
   const initialConstrains = {
     audio: true,
@@ -52,18 +48,16 @@ const getMedia = async deviceId => {
     console.log(e);
   }
 };
-
 const handleMuteClick = () => {
   myStream.getAudioTracks().forEach(track => (track.enabled = !track.enabled));
-  if (muted) {
-    muteBtn.innerText = 'Mute';
-    muted = false;
-  } else {
+  if (!muted) {
     muteBtn.innerText = 'Unmute';
     muted = true;
+  } else {
+    muteBtn.innerText = 'Mute';
+    muted = false;
   }
 };
-
 const handleCameraClick = () => {
   myStream.getVideoTracks().forEach(track => (track.enabled = !track.enabled));
   if (cameraOff) {
@@ -74,7 +68,6 @@ const handleCameraClick = () => {
     cameraOff = true;
   }
 };
-
 const handleCameraChange = async () => {
   await getMedia(camerasSelect.value);
   if (myPeerConnection) {
@@ -83,7 +76,6 @@ const handleCameraChange = async () => {
     videoSender.replaceTrack(videoTrack);
   }
 };
-
 muteBtn.addEventListener('click', handleMuteClick);
 cameraBtn.addEventListener('click', handleCameraClick);
 camerasSelect.addEventListener('input', handleCameraChange);
@@ -92,14 +84,12 @@ camerasSelect.addEventListener('input', handleCameraChange);
 
 const welcome = document.getElementById('welcome');
 const welcomeForm = welcome.querySelector('form');
-
 const initCall = async () => {
   welcome.hidden = true;
   call.hidden = false;
   await getMedia();
   makeConnection();
 };
-
 const handleWelcomeSubmit = async event => {
   event.preventDefault();
   const input = welcomeForm.querySelector('input');
@@ -108,7 +98,6 @@ const handleWelcomeSubmit = async event => {
   roomName = input.value;
   input.value = '';
 };
-
 welcomeForm.addEventListener('submit', handleWelcomeSubmit);
 
 // Socket Code
@@ -119,7 +108,6 @@ socket.on('welcome', async () => {
   console.log('sent the offer');
   socket.emit('offer', offer, roomName);
 });
-
 socket.on('offer', async offer => {
   console.log('received the offer');
   myPeerConnection.setRemoteDescription(offer);
@@ -128,17 +116,14 @@ socket.on('offer', async offer => {
   socket.emit('answer', answer, roomName);
   console.log('sent the answer');
 });
-
 socket.on('answer', answer => {
   console.log('received the answer');
   myPeerConnection.setRemoteDescription(answer);
 });
-
 socket.on('ice', ice => {
   console.log('received candidate');
   myPeerConnection.addIceCandidate(ice);
 });
-
 // RTC Code
 
 const makeConnection = () => {
@@ -159,12 +144,10 @@ const makeConnection = () => {
   myPeerConnection.addEventListener('addstream', handleAddStream);
   myStream.getTracks().forEach(track => myPeerConnection.addTrack(track, myStream));
 };
-
 const handleIce = data => {
   console.log('sent candidate');
   socket.emit('ice', data.candidate, roomName);
 };
-
 const handleAddStream = data => {
   const peerFace = document.getElementById('peerFace');
   peerFace.srcObject = data.stream;
