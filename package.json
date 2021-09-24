@@ -29,9 +29,7 @@
     "url": "https://github.com/wondonghwi/Zoom_CloneCoding/issues"
   },
   "scripts": {
-    "dev": "nodemon",
-    "predeploy": "yarn build",
-    "deploy": "gh-pages -d build"
+    "dev": "nodemon"
   },
   "homepage": "https://wondonghwi.github.io/Zoom_CloneCoding/",
   "description": "using WebRTC and Websockets",
